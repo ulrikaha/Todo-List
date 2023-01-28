@@ -15,6 +15,7 @@ const btnAdd = document.querySelector('#add');
 let listArray = [];
 
 
+
 const getTodos = async () => {
   const res = await fetch(API_URL)
   const todos = await res.json()
@@ -35,7 +36,8 @@ const getTodos = async () => {
 getTodos()
 
 
-//Create a card with info from toto /database
+//Create a card with info from todo /database
+
 const createElement = (todo) => {
   console.log(todo)
   const card = document.createElement('div')
@@ -65,15 +67,21 @@ const createElement = (todo) => {
 
   btnUndo.addEventListener('click', () => {
     title.classList.remove('line-over')
+    btnDone.classList.remove('completed') 
   })
+
+
 
   const btnDelete = document.createElement('button')
   btnDelete.innerText = 'Delete'
-  btnDelete.addEventListener('click', () => {
 
-    if (btnDone.classList.contains('completed')) {
+  
+  btnDelete.addEventListener('click', () => { 
+
+   if (btnDone.classList.contains('completed')) {                     
       btnDelete.parentElement.remove()
-
+      
+      
       fetch(BASE_URL + "/" + btnDelete.parentElement.id, {
         method: 'DELETE'
       })
@@ -101,9 +109,9 @@ const createElement = (todo) => {
 }
 
 //Add Eventlistner to form /Prevent form to load,
-
 form.addEventListener('submit', e => {
   e.preventDefault()
+
 
   //Add a new todo
   const newTodo = {
@@ -113,7 +121,6 @@ form.addEventListener('submit', e => {
 
 
   // Send a post to url
-
   fetch(BASE_URL, {
     method: 'POST',
     body: JSON.stringify(newTodo),
@@ -125,7 +132,6 @@ form.addEventListener('submit', e => {
 
 
       //Create a new todo element to the list
-
       const card = createElement(todo)
       document.querySelector('#output').appendChild(card)
 
@@ -134,27 +140,7 @@ form.addEventListener('submit', e => {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Function to validate if the form is empty and not to submit a empty todo + alert message
-
+//Validation if the form is empty and not to submit a empty todo + alert message
 function empty() {
   const input = document.querySelector('#text').value
   if (input.trim() == '') {

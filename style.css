@@ -5,7 +5,7 @@
 }
 
 body {
-  background-image: url(./images/dddepth-314.jpg);
+  background-image: url(./images/pexels-madison-inouye-1831234.jpg);
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -91,21 +91,6 @@ body {
 
 }
 
-.delete,
-.edit,
-.done {
-  display: flex;
-  justify-content: end;
-  align-self: flex-end;
-  background-color: #fff;
-  color: #000;
-  margin: .3rem;
-  padding: .3em 1.7em;
-  border: 0;
-  cursor: pointer;
-  border-radius: 1rem;
-  transition: all 200ms ease-out;
-}
 
 
 .line-over {

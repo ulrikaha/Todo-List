@@ -116,9 +116,10 @@ body {
 .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: auto;
+  margin: 15% auto; 
   padding: 20px;
   width: 80%;
+  border: 1px solid #888;
 }
 
 
@@ -136,4 +137,5 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+
 

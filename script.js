@@ -52,6 +52,7 @@ const createElement = (todo) => {
 
   const btnDone = document.createElement('button')
   btnDone.innerText = 'Done'
+  btnDone.className = 'btnStyle'
 
   if (todo.completed) {
     title.classList.add('line-over')
@@ -66,6 +67,7 @@ const createElement = (todo) => {
 
   const btnUndo = document.createElement('button')
   btnUndo.innerText = 'Undo'
+  btnUndo.className = 'btnStyle'
 
   btnUndo.addEventListener('click', () => {
     title.classList.remove('line-over')
@@ -75,6 +77,7 @@ const createElement = (todo) => {
 
   const btnDelete = document.createElement('button')
   btnDelete.innerText = 'Delete'
+  btnDelete.className = 'btnStyle'
 
   btnDelete.addEventListener('click', () => {
 

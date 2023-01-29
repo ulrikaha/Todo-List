@@ -8,6 +8,8 @@ const BASE_URL = "https://jsonplaceholder.typicode.com/todos";
 const form = document.querySelector('#form')
 const output = document.querySelector('#output');
 const btnAdd = document.querySelector('#add');
+const modal = document.getElementById("modal");
+const closeButton = document.getElementById("close-button");
 
 
 
@@ -39,7 +41,7 @@ getTodos()
 //Create a card with info from todo /database
 
 const createElement = (todo) => {
-  console.log(todo)
+  //console.log(todo)
   const card = document.createElement('div')
   card.className = 'item'
   card.id = todo.id
@@ -67,21 +69,19 @@ const createElement = (todo) => {
 
   btnUndo.addEventListener('click', () => {
     title.classList.remove('line-over')
-    btnDone.classList.remove('completed') 
+    btnDone.classList.remove('completed')
   })
-
 
 
   const btnDelete = document.createElement('button')
   btnDelete.innerText = 'Delete'
 
-  
-  btnDelete.addEventListener('click', () => { 
+  btnDelete.addEventListener('click', () => {
 
-   if (btnDone.classList.contains('completed')) {                     
+    if (btnDone.classList.contains('completed')) {
       btnDelete.parentElement.remove()
-      
-      
+
+
       fetch(BASE_URL + "/" + btnDelete.parentElement.id, {
         method: 'DELETE'
       })
@@ -89,24 +89,36 @@ const createElement = (todo) => {
           console.log(res)
         })
 
-
-
     } else {
-      alert('Error modal goes here')
+      function openModal() {
+        modal.style.display = "block";
+
+      }
     }
+    openModal()
+
+    closeButton.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+       if (e.target == modal) {
+          modal.style.display = "none";
+        }
+      })
+
+
+
   })
 
+card.appendChild(title)
+card.appendChild(btnDone)
+card.appendChild(btnUndo)
+card.appendChild(btnDelete)
 
+return card
 
-
-  card.appendChild(title)
-  card.appendChild(btnDone)
-  card.appendChild(btnUndo)
-  card.appendChild(btnDelete)
-
-  return card
-
-}
+};
 
 //Add Eventlistner to form /Prevent form to load,
 form.addEventListener('submit', e => {
@@ -149,8 +161,6 @@ function empty() {
 
   }
 }
-
-
 
 
 

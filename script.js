@@ -1,4 +1,5 @@
 
+
 //Url to rest API                                 //query to limit todos to 7
 const API_URL = "https://jsonplaceholder.typicode.com/todos?page=3&_limit=7";
 const BASE_URL = "https://jsonplaceholder.typicode.com/todos";
@@ -164,21 +165,3 @@ function empty() {
 
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

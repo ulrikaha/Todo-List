@@ -1,1 +1,1 @@
-Java Script projects - Todo List
+School project @ KYH - Todo List with JavaScript 

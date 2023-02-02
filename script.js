@@ -8,6 +8,7 @@ const output = document.querySelector('#output');
 const btnAdd = document.querySelector('#add');
 const modal = document.getElementById("modal");
 const closeButton = document.getElementById("close-button");
+const modalBtnX = document.querySelector(".close-button")
 
 
 //Fetch 
@@ -92,12 +93,14 @@ const createElement = (todo) => {
   });
 
 
-  // Modal close button 
-  closeButton.addEventListener("click", () => {
+ 
+// Modal X-button - close
+  modalBtnX.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
-  // Click outside modal - modal close
+
+// Click outside modal - modal close
   window.addEventListener("click", (e) => {
     if (e.target == modal) {
       modal.style.display = "none";

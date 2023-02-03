@@ -2,36 +2,56 @@
 const API_URL = "https://jsonplaceholder.typicode.com/todos?page=3&_limit=7";
 const BASE_URL = "https://jsonplaceholder.typicode.com/todos";
 
+const arrayTodos = [];
+
 //Get ref to elements 
-const form = document.querySelector('#form')
+const form = document.querySelector('#form');
 const output = document.querySelector('#output');
 const btnAdd = document.querySelector('#add');
 const modal = document.getElementById("modal");
-const closeButton = document.getElementById("close-button");
-const modalBtnX = document.querySelector(".close-button")
+const modalBtnX = document.querySelector(".close-button");
 
 
 //Fetch 
 const getTodos = async () => {
   const res = await fetch(API_URL)
   const todos = await res.json()
+
   //console.log(todos)
 
   //Loop through todos
   todos.forEach(todo => {
+    arrayTodos.push(todo)
+
+
+    listTodos()
   
   //Add a new element to output
-    output.appendChild(createElement(todo))
+    //output.appendChild(createElement(todo))
   })
 
+ //console.log(arrayTodos)
 
 }
 
 getTodos()
 
 
+
+const listTodos = () => {
+  output.innerHTML = '';
+  arrayTodos.forEach(todo => {
+
+      const todoElement = createTodoElement(todo)
+      output.appendChild(todoElement)
+  })
+}
+
+
+
+
 //Create a card with info from todo /database
-const createElement = (todo) => {
+const createTodoElement = (todo) => {
 
   const card = document.createElement('div')
   card.className = 'item'
@@ -82,7 +102,15 @@ const createElement = (todo) => {
         method: 'DELETE'
       })
         .then(res => {
-          console.log(res)
+
+          if (res.ok) {
+            btnDelete.parentElement.remove()
+
+            const index = arrayTodos.findIndex((todo) => todo.id == todo);
+            arrayTodos.splice(index, 1);
+            console.log(arrayTodos)
+        }
+          
         })
 
       //Show modal with error message
@@ -148,12 +176,12 @@ form.addEventListener("submit", e => {
       .then((res) => res.json())
       .then((todo) => {
 
+        arrayTodos.push(todo)
 
         //Create a new todo element to the list
-        const card = createElement(todo)
-        output.appendChild(card)
-
-        console.log(todo)
+        const todoElement = createTodoElement(todo)
+        output.appendChild(todoElement)
+      
       });
 
     //Clear the form after input    

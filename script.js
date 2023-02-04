@@ -1,7 +1,8 @@
-//Url to rest API      //query to limit todos to 7
-const API_URL = "https://jsonplaceholder.typicode.com/todos?page=3&_limit=7";
+//Url to rest API      
+const API_URL = "https://jsonplaceholder.typicode.com/todos?page=3&_limit=7";  //query to limit todos to 7
 const BASE_URL = "https://jsonplaceholder.typicode.com/todos";
 
+//Array to store data from the api
 const arrayTodos = [];
 
 //Get ref to elements 
@@ -19,38 +20,34 @@ const getTodos = async () => {
 
   //console.log(todos)
 
-  //Loop through todos
+  //Loop through todos & push them to the array
   todos.forEach(todo => {
     arrayTodos.push(todo)
 
 
     listTodos()
-  
-  //Add a new element to output
-    //output.appendChild(createElement(todo))
+
   })
 
- //console.log(arrayTodos)
+  //console.log(arrayTodos)
 
 }
 
 getTodos()
 
 
-
+//Function to list todos and create a todo-element to each todo in the list
 const listTodos = () => {
   output.innerHTML = '';
   arrayTodos.forEach(todo => {
 
-      const todoElement = createTodoElement(todo)
-      output.appendChild(todoElement)
+    const todoElement = createTodoElement(todo)
+    output.appendChild(todoElement)
   })
 }
 
 
-
-
-//Create a card with info from todo /database
+//Function to create all elements for the todos
 const createTodoElement = (todo) => {
 
   const card = document.createElement('div')
@@ -76,6 +73,7 @@ const createTodoElement = (todo) => {
     btnDone.classList.toggle('completed')
   })
 
+
   // Button Undo
   const btnUndo = document.createElement('button')
   btnUndo.innerText = 'Undo'
@@ -85,6 +83,7 @@ const createTodoElement = (todo) => {
     title.classList.remove('line-over')
     btnDone.classList.remove('completed')
   })
+
 
   // Button Delete
   const btnDelete = document.createElement('button')
@@ -97,7 +96,7 @@ const createTodoElement = (todo) => {
       btnDelete.parentElement.remove()
 
 
-      // Fetch Delete 
+      // Fetch Delete remove from database and array
       fetch(BASE_URL + "/" + btnDelete.parentElement.id, {
         method: 'DELETE'
       })
@@ -108,9 +107,10 @@ const createTodoElement = (todo) => {
 
             const index = arrayTodos.findIndex((todo) => todo.id == todo);
             arrayTodos.splice(index, 1);
+
             console.log(arrayTodos)
-        }
-          
+          }
+
         })
 
       //Show modal with error message
@@ -121,14 +121,13 @@ const createTodoElement = (todo) => {
   });
 
 
- 
-// Modal X-button - close
+  // Modal X-button - close
   modalBtnX.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
 
-// Click outside modal - modal close
+  // Click outside modal - modal close
   window.addEventListener("click", (e) => {
     if (e.target == modal) {
       modal.style.display = "none";
@@ -153,19 +152,20 @@ form.addEventListener("submit", e => {
   let inputValue = document.querySelector('input[type="text"]').value
 
 
-  //Validation if the form is empty and not to submit a empty todo + alert message
+  //Validation if the form is empty, not to submit a empty todo + alert message
   if (inputValue == '') {
-    alert('Your input can not be empty')
+    alert('Your input can not be empty! Please type your text and click add')
     return false
 
   } else {
-    //Add a new todo
+    //Add a new todo from input
     const newTodo = {
       title: inputValue,
       completed: false
     }
 
-    // Send a post to url
+
+    // Send a post to url and to array
     fetch(BASE_URL, {
       method: 'POST',
       body: JSON.stringify(newTodo),
@@ -178,11 +178,13 @@ form.addEventListener("submit", e => {
 
         arrayTodos.push(todo)
 
-        //Create a new todo element to the list
+
+        //Create a new todo element to the list, prepend add it first in the list.
         const todoElement = createTodoElement(todo)
-        output.appendChild(todoElement)
-      
+        output.prepend(todoElement)
+
       });
+      
 
     //Clear the form after input    
     form.reset()

@@ -93,10 +93,8 @@ const createTodoElement = (todo) => {
   btnDelete.addEventListener('click', () => {
 
     if (btnDone.classList.contains('completed')) {
-      btnDelete.parentElement.remove()
-
-
-      // Fetch Delete remove from database and array
+      
+// Fetch Delete remove from database and array
       fetch(BASE_URL + "/" + btnDelete.parentElement.id, {
         method: 'DELETE'
       })
